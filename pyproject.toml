@@ -1,0 +1,19 @@
+[project]
+name = "web-engineering"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "django>=4.2.30",
+]
+
+[dependency-groups]
+dev = [
+    "black>=25.11.0",
+    "coverage>=7.10.7",
+    "pylint>=3.3.9",
+    "pylint-django>=2.7.0",
+    "pytest>=8.4.2",
+    "pytest-django>=4.11.1",
+]
