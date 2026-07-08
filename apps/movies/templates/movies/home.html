@@ -6,6 +6,8 @@
 <body>
     <h1>Welcome to The Movies</h1>
     <p>Your one-stop shop for movie reservations.</p>
-    <a href="{% url 'movie-list' %}">Browse Movies</a>
+    <a href="{% url 'movie-list' %}">Browse Movies</a><br>
+    <a href="{% url 'login' %}">Log In</a> | <a href="{% url 'register' %}">Register</a><br>
+    <a href="{% url 'movie-search' %}">Search Movies</a>
 </body>
 </html>

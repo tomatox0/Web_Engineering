@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Reserve Seats</title>
+</head>
+<body>
+    <h1>Reserve Seats</h1>
+    <p><strong>Movie:</strong> {{ showtime.movie.title }}</p>
+    <p><strong>Showtime:</strong> {{ showtime.start_time }}</p>
+    <p><strong>Price:</strong> ${{ showtime.price }}</p>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Confirm Reservation</button>
+    </form>
+    <a href="{% url 'movie-list' %}">Back to Movies</a>
+</body>
+</html>
