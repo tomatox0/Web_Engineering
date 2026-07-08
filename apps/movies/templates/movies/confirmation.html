@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Reservation Confirmed</title>
+</head>
+<body>
+    <h1>Reservation Confirmed</h1>
+    <p><strong>User:</strong> {{ reservation.user.email }}</p>
+    <p><strong>Movie:</strong> {{ reservation.showtime.movie.title }}</p>
+    <p><strong>Showtime:</strong> {{ reservation.showtime.start_time }}</p>
+    <p><strong>Seats:</strong> {{ reservation.seats }}</p>
+    <p><strong>Status:</strong> {{ reservation.status }}</p>
+    <a href="{% url 'home' %}">Back to Home</a>
+</body>
+</html>
