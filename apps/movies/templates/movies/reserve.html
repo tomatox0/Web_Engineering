@@ -1,18 +1,60 @@
+{% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reserve Seats</title>
+    <link rel="stylesheet" href="{% static 'movies/css/style.css' %}">
 </head>
 <body>
-    <h1>Reserve Seats</h1>
-    <p><strong>Movie:</strong> {{ showtime.movie.title }}</p>
-    <p><strong>Showtime:</strong> {{ showtime.start_time }}</p>
-    <p><strong>Price:</strong> ${{ showtime.price }}</p>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Confirm Reservation</button>
-    </form>
-    <a href="{% url 'movie-list' %}">Back to Movies</a>
+    <div class="page-wrapper">
+        <header>
+            <div class="container">
+                <h1>The Movies</h1>
+                <nav>
+                    <a href="{% url 'movie-list' %}">Browse Movies</a>
+                    <a href="{% url 'movie-search' %}">Search</a>
+                    <a href="{% url 'login' %}">Log In</a>
+                    <a href="{% url 'register' %}">Register</a>
+                </nav>
+            </div>
+        </header>
+
+        <main class="container">
+            <h2>Reserve Seats</h2>
+            <section class="card">
+                <p><strong>Movie:</strong> {{ showtime.movie.title }}</p>
+                <p><strong>Showtime:</strong> {{ showtime.start_time }}</p>
+                <p><strong>Price:</strong> ${{ showtime.price }}</p>
+            </section>
+            <form method="post" class="form-container">
+                {% csrf_token %}
+                {% if form.non_field_errors %}
+                    <div class="form-errors" role="alert">
+                        {% for error in form.non_field_errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                <div class="form-group">
+                    <label for="id_seats">Number of seats</label>
+                    <input type="number" name="seats" id="id_seats" min="1" max="10" value="{{ form.seats.value|default_if_none:'' }}" aria-describedby="{% if form.seats.errors %}id_seats_error{% endif %}">
+                    {% if form.seats.errors %}
+                        <div class="form-errors" id="id_seats_error" role="alert">
+                            {% for error in form.seats.errors %}<p>{{ error }}</p>{% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                <button type="submit">Confirm Reservation</button>
+            </form>
+        </main>
+
+        <footer>
+            <div class="container">
+                <p>&copy; 2026 The Movies. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
 </body>
 </html>

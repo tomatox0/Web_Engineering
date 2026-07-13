@@ -1,34 +1,4 @@
-# Movie Views
-
-Browser-accessible view functions for the movies app.
-
-## URL Scheme
-
-| URL Pattern | View Function | Arguments | Returns |
-|---|---|---|---|---|
-| `/` | `home` | None | Renders `movies/home.html` |
-| `/movies/` | `movie_list` | None | Renders `movies/list.html` with `movies` queryset |
-| `/register/` | `register` | None | GET renders `movies/register.html`; POST creates User and redirects to `/` |
-| `/login/` | `login_view` | None | GET renders `movies/login.html`; POST authenticates and redirects to `/` |
-| `/search/` | `movie_search` | `q` (query string, optional) | Renders `movies/search.html` with results |
-| `/reserve/<int:showtime_id>/` | `reserve` | `showtime_id` (int) | GET renders `movies/reserve.html` with form; POST creates Reservation and redirects to `/reservation/<id>/` |
-| `/reservation/<int:reservation_id>/` | `reservation_confirmation` | `reservation_id` (int) | Renders `movies/confirmation.html` with `reservation` object |
-
-## Views
-
-### Home (`/`)
-Simple welcome page. No database queries. No arguments.
-
-### Movie List (`/movies/`)
-Queries all `Movie` records and passes them to the template. Shows empty state when no movies exist.
-
-### Reserve (`/reserve/<showtime_id>/`)
-Looks up `Showtime` by primary key (returns 404 if not found). On GET, renders a reservation form with seat count input. On POST, validates the seat count via `ReservationForm`, creates a `Reservation` associated with the authenticated user, and redirects to the confirmation page.
-
-### Reservation Confirmation (`/reservation/<reservation_id>/`)
-Looks up `Reservation` by primary key (returns 404 if not found). Renders details: user email, movie title, showtime time, seat count, and status.
-
-## Requirements
+## MODIFIED Requirements
 
 ### Requirement: Home page
 The system SHALL render a welcome page at the root URL (`/`) using a Django template with semantic HTML structure, a `<header>` containing site title and navigation, a `<main>` section with the welcome content, and a `<footer>`.

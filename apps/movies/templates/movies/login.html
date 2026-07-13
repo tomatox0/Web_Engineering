@@ -1,16 +1,65 @@
+{% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Log In</title>
+    <link rel="stylesheet" href="{% static 'movies/css/style.css' %}">
 </head>
 <body>
-    <h1>Log In</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Log In</button>
-    </form>
-    <p>Don't have an account? <a href="{% url 'register' %}">Register</a></p>
-    <a href="{% url 'home' %}">Back to Home</a>
+    <div class="page-wrapper">
+        <header>
+            <div class="container">
+                <h1>The Movies</h1>
+                <nav>
+                    <a href="{% url 'movie-list' %}">Browse Movies</a>
+                    <a href="{% url 'movie-search' %}">Search</a>
+                    <a href="{% url 'login' %}">Log In</a>
+                    <a href="{% url 'register' %}">Register</a>
+                </nav>
+            </div>
+        </header>
+
+        <main class="container">
+            <h2>Log In</h2>
+            <form method="post" class="form-container">
+                {% csrf_token %}
+                {% if form.non_field_errors %}
+                    <div class="form-errors" role="alert">
+                        {% for error in form.non_field_errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                <div class="form-group">
+                    <label for="id_email">Email</label>
+                    <input type="email" name="email" id="id_email" value="{{ form.email.value|default_if_none:'' }}" aria-describedby="{% if form.email.errors %}id_email_error{% endif %}">
+                    {% if form.email.errors %}
+                        <div class="form-errors" id="id_email_error" role="alert">
+                            {% for error in form.email.errors %}<p>{{ error }}</p>{% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label for="id_password">Password</label>
+                    <input type="password" name="password" id="id_password" aria-describedby="{% if form.password.errors %}id_password_error{% endif %}">
+                    {% if form.password.errors %}
+                        <div class="form-errors" id="id_password_error" role="alert">
+                            {% for error in form.password.errors %}<p>{{ error }}</p>{% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                <button type="submit">Log In</button>
+            </form>
+            <p>Don't have an account? <a href="{% url 'register' %}">Register</a></p>
+        </main>
+
+        <footer>
+            <div class="container">
+                <p>&copy; 2026 The Movies. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
 </body>
 </html>

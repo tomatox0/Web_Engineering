@@ -1,23 +1,48 @@
+{% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Movies</title>
+    <link rel="stylesheet" href="{% static 'movies/css/style.css' %}">
 </head>
 <body>
-    <h1>Now Showing</h1>
-    {% if movies %}
-        <ul>
-        {% for movie in movies %}
-            <li>
-                <strong>{{ movie.title }}</strong><br>
-                {{ movie.description }}<br>
-                Release: {{ movie.release_date }} | Duration: {{ movie.duration }} min
-            </li>
-        {% endfor %}
-        </ul>
-    {% else %}
-        <p>No movies are currently available.</p>
-    {% endif %}
-    <a href="{% url 'home' %}">Back to Home</a>
+    <div class="page-wrapper">
+        <header>
+            <div class="container">
+                <h1>The Movies</h1>
+                <nav>
+                    <a href="{% url 'movie-list' %}">Browse Movies</a>
+                    <a href="{% url 'movie-search' %}">Search</a>
+                    <a href="{% url 'login' %}">Log In</a>
+                    <a href="{% url 'register' %}">Register</a>
+                </nav>
+            </div>
+        </header>
+
+        <main class="container">
+            <h2>Now Showing</h2>
+            {% if movies %}
+                <div class="movie-grid">
+                {% for movie in movies %}
+                    <article class="card">
+                        <h3>{{ movie.title }}</h3>
+                        <p>{{ movie.description }}</p>
+                        <p><strong>Release:</strong> {{ movie.release_date }} | <strong>Duration:</strong> {{ movie.duration }} min</p>
+                    </article>
+                {% endfor %}
+                </div>
+            {% else %}
+                <p>No movies are currently available.</p>
+            {% endif %}
+        </main>
+
+        <footer>
+            <div class="container">
+                <p>&copy; 2026 The Movies. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
 </body>
 </html>

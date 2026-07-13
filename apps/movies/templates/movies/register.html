@@ -1,16 +1,92 @@
+{% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
+    <link rel="stylesheet" href="{% static 'movies/css/style.css' %}">
 </head>
 <body>
-    <h1>Create an Account</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Register</button>
-    </form>
-    <p>Already have an account? <a href="{% url 'login' %}">Log in</a></p>
-    <a href="{% url 'home' %}">Back to Home</a>
+    <div class="page-wrapper">
+        <header>
+            <div class="container">
+                <h1>The Movies</h1>
+                <nav>
+                    <a href="{% url 'movie-list' %}">Browse Movies</a>
+                    <a href="{% url 'movie-search' %}">Search</a>
+                    <a href="{% url 'login' %}">Log In</a>
+                    <a href="{% url 'register' %}">Register</a>
+                </nav>
+            </div>
+        </header>
+
+        <main class="container">
+            <h2>Create an Account</h2>
+            <form method="post" class="form-container">
+                {% csrf_token %}
+                {% if form.non_field_errors %}
+                    <div class="form-errors" role="alert">
+                        {% for error in form.non_field_errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                <div class="form-group">
+                    <label for="id_email">Email</label>
+                    <input type="email" name="email" id="id_email" value="{{ form.email.value|default_if_none:'' }}" aria-describedby="{% if form.email.errors %}id_email_error{% endif %}">
+                    {% if form.email.errors %}
+                        <div class="form-errors" id="id_email_error" role="alert">
+                            {% for error in form.email.errors %}<p>{{ error }}</p>{% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label for="id_first_name">First name</label>
+                    <input type="text" name="first_name" id="id_first_name" value="{{ form.first_name.value|default_if_none:'' }}" aria-describedby="{% if form.first_name.errors %}id_first_name_error{% endif %}">
+                    {% if form.first_name.errors %}
+                        <div class="form-errors" id="id_first_name_error" role="alert">
+                            {% for error in form.first_name.errors %}<p>{{ error }}</p>{% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label for="id_last_name">Last name</label>
+                    <input type="text" name="last_name" id="id_last_name" value="{{ form.last_name.value|default_if_none:'' }}" aria-describedby="{% if form.last_name.errors %}id_last_name_error{% endif %}">
+                    {% if form.last_name.errors %}
+                        <div class="form-errors" id="id_last_name_error" role="alert">
+                            {% for error in form.last_name.errors %}<p>{{ error }}</p>{% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label for="id_password1">Password</label>
+                    <input type="password" name="password1" id="id_password1" aria-describedby="{% if form.password1.errors %}id_password1_error{% endif %}">
+                    {% if form.password1.errors %}
+                        <div class="form-errors" id="id_password1_error" role="alert">
+                            {% for error in form.password1.errors %}<p>{{ error }}</p>{% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label for="id_password2">Confirm password</label>
+                    <input type="password" name="password2" id="id_password2" aria-describedby="{% if form.password2.errors %}id_password2_error{% endif %}">
+                    {% if form.password2.errors %}
+                        <div class="form-errors" id="id_password2_error" role="alert">
+                            {% for error in form.password2.errors %}<p>{{ error }}</p>{% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                <button type="submit">Register</button>
+            </form>
+            <p>Already have an account? <a href="{% url 'login' %}">Log in</a></p>
+        </main>
+
+        <footer>
+            <div class="container">
+                <p>&copy; 2026 The Movies. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
 </body>
 </html>

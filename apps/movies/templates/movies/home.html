@@ -1,13 +1,38 @@
+{% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Movies - Home</title>
+    <link rel="stylesheet" href="{% static 'movies/css/style.css' %}">
 </head>
 <body>
-    <h1>Welcome to The Movies</h1>
-    <p>Your one-stop shop for movie reservations.</p>
-    <a href="{% url 'movie-list' %}">Browse Movies</a><br>
-    <a href="{% url 'login' %}">Log In</a> | <a href="{% url 'register' %}">Register</a><br>
-    <a href="{% url 'movie-search' %}">Search Movies</a>
+    <div class="page-wrapper">
+        <header>
+            <div class="container">
+                <h1>The Movies</h1>
+                <nav>
+                    <a href="{% url 'movie-list' %}">Browse Movies</a>
+                    <a href="{% url 'movie-search' %}">Search</a>
+                    <a href="{% url 'login' %}">Log In</a>
+                    <a href="{% url 'register' %}">Register</a>
+                </nav>
+            </div>
+        </header>
+
+        <main class="container">
+            <section>
+                <h2>Welcome to The Movies</h2>
+                <p>Your one-stop shop for movie reservations.</p>
+            </section>
+        </main>
+
+        <footer>
+            <div class="container">
+                <p>&copy; 2026 The Movies. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
 </body>
 </html>
